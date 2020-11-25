@@ -3362,6 +3362,9 @@ in {
   leveldb = callPackage ../development/python-modules/leveldb { };
 
   lexid = callPackage ../development/python-modules/lexid { };
+
+  lib3to6 = callPackage ../development/python-modules/lib3to6 { };
+
   libagent = callPackage ../development/python-modules/libagent { };
 
   pa-ringbuffer = callPackage ../development/python-modules/pa-ringbuffer { };

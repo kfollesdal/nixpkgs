@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 {
@@ -16,7 +16,13 @@ with lib;
     "boot.panic_on_fail"
   ];
 
-  boot.initrd.kernelModules = [ "hv_vmbus" "hv_netvsc" "hv_utils" "hv_storvsc" ];
+  # Azure VM runs on Hyper-V hypervisor [2].
+  # Follwoing config is form nixos-generate-config for hyper-v
+  virtualisation.hypervGuest.enable = true;
+  boot.initrd.availableKernelModules = [ "sd_mod" "sr_mod" ];
+  networking.useDHCP = lib.mkDefault true;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  networking.networkmanager.enable = true;
 
   # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";

@@ -25,7 +25,6 @@ with lib;
   boot.initrd.availableKernelModules = [ "sd_mod" "sr_mod" ];
   networking.useDHCP = lib.mkDefault true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  networking.networkmanager.enable = true;
 
   # Generate a GRUB menu.
   boot.loader.grub.device = "/dev/sda";

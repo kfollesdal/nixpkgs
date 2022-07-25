@@ -5,7 +5,10 @@ let
   cfg = config.virtualisation.azureImage;
 in
 {
-  imports = [ ./azure.nix ];
+  imports = [
+    ./azure.nix
+    ./azure-init.nix
+  ];
 
   options = {
     virtualisation.azureImage.diskSize = mkOption {

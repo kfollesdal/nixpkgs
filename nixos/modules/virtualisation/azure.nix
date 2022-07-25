@@ -4,7 +4,8 @@ with lib;
 {
   #imports = [ ../profiles/headless.nix ];
 
-  users.users."root".hashedPassword = "$6$btHnnsldS8jvIUnG$TvzmYa/0GQqDoT6E1eoEsNG3j9pzLpLbd2opcNnoslv0B9VumV79JmTD9/FHMgSM69Kvai95V4GZBTb2Bax/t/";
+  users.users."root".initialHashedPassword = "$6$jAF.N3qAPwUFXf2m$qz/pbdPcJylkekMBdDTwriF9xdzL4b38ahhXFxhxF19iLlxOetiiMXHupug7C7/hDR08gsPMUcntVYQ0XRc8S/";
+  users.users."root".hashedPassword = config.users.users."root".initialHashedPassword;
 
   boot.kernelParams = [
     # Kernel parameters recommende for Azure [1] and [3]

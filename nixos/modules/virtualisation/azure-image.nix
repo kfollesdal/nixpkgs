@@ -36,7 +36,7 @@ in
         ${pkgs.vmTools.qemu}/bin/qemu-img convert -f raw -o subformat=fixed,force_size -O vpc $diskImage $out/disk.vhd
         rm $diskImage
       '';
-      configFile = ./azure-config-user.nix;
+      #configFile = ./azure-config-user.nix;
       format = "raw";
       inherit (cfg) diskSize;
       inherit config lib pkgs;

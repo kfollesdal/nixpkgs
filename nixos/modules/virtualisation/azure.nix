@@ -4,7 +4,18 @@ with lib;
 {
   imports = [ ../profiles/headless.nix ];
 
-  boot.kernelParams = [ "console=ttyS0" "earlyprintk=ttyS0" "rootdelay=300" "panic=1" "boot.panic_on_fail" ];
+  boot.kernelParams = [
+    # Kernel parameters recommende for Azure [1] and [3]
+    "rootdelay=300"
+    "console=ttyS0,115200" # [3]
+    "earlyprintk=ttyS0"
+    "net.ifnames=0"
+
+    # Since we can't manually respond to a panic, just reboot.
+    "panic=1"
+    "boot.panic_on_fail"
+  ];
+
   boot.initrd.kernelModules = [ "hv_vmbus" "hv_netvsc" "hv_utils" "hv_storvsc" ];
 
   # Generate a GRUB menu.
@@ -65,3 +76,9 @@ with lib;
   '';
 
 }
+/*
+REFERENCES
+  1. https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-generic#general-linux-system-requirements
+  2. https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-generic#installing-kernel-modules-without-hyper-v
+  3. https://docs.microsoft.com/en-us/troubleshoot/azure/virtual-machines/serial-console-linux#custom-linux-images
+*/

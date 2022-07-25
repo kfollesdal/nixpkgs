@@ -4,6 +4,8 @@ with lib;
 {
   #imports = [ ../profiles/headless.nix ];
 
+  users.users."root".hashedPassword = "$6$btHnnsldS8jvIUnG$TvzmYa/0GQqDoT6E1eoEsNG3j9pzLpLbd2opcNnoslv0B9VumV79JmTD9/FHMgSM69Kvai95V4GZBTb2Bax/t/";
+
   boot.kernelParams = [
     # Kernel parameters recommende for Azure [1] and [3]
     "rootdelay=300"

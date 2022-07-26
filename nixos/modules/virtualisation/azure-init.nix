@@ -69,6 +69,32 @@ signal-ready = pkgs.writeShellApplication {
   '';
 };
 in {
+  systemd.services.azure-get-hostname = {
+    # https://docs.microsoft.com/en-us/azure/virtual-machines/linux/instance-metadata-service?tabs=linux
+    description = "Get hostname from Azure";
+
+    wantedBy = [ "multi-user.target" ];
+    after = [ "multi-user.target" ];
+    requires = [ "network-online.target" ];
+
+    path = [ pkgs.hostname pkgs.curl ];
+
+    unitConfig = {
+      ConditionPathExists = "!/etc/hostname";
+    };
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+
+    script = ''
+      AZURE_HOSTNAME=$(curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2021-10-01&format=text")
+      hostname "$AZURE_HOSTNAME"
+      echo "$AZURE_HOSTNAME" > /etc/hostname
+    '';
+  };
+
   systemd.services.azure-signal-ready = {
     description = "Report VM ready to Azure ";
 

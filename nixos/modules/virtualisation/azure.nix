@@ -19,6 +19,8 @@ with lib;
     "boot.panic_on_fail"
   ];
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Azure VM runs on Hyper-V hypervisor [2].
   # Follwoing config is form nixos-generate-config for hyper-v
   virtualisation.hypervGuest.enable = true;

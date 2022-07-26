@@ -62,6 +62,24 @@ with lib;
 
   networking.usePredictableInterfaceNames = false;
 
+  systemd.services.consume-hypervisor-entropy = {
+    # https://github.com/Azure/WALinuxAgent/blob/e4cba48b0a516b874f0c75fa2ab40cbcc72771b6/bin/waagent2.0#L5686
+    description = "Consume entropy in ACPI table provided by Hyper-V";
+    wantedBy = [ "sshd.service" ];
+    before = [ "sshd.service" ];
+
+    path  = [ pkgs.coreutils ];
+    script =
+      ''
+        echo "Fetching entropy..."
+        cat /sys/firmware/acpi/tables/OEM0 > /dev/random
+      '';
+    serviceConfig.Type = "oneshot";
+    serviceConfig.RemainAfterExit = true;
+    serviceConfig.StandardError = "journal+console";
+    serviceConfig.StandardOutput = "journal+console";
+  };
+
 }
 /*
 REFERENCES

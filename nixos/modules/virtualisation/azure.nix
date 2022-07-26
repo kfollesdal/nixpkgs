@@ -5,6 +5,12 @@ with lib;
   #imports = [ ../profiles/headless.nix ];
 
   options.virtualisation.azure = {
+    consumeEntropy = mkOption {
+      description = "Consumes Hyper-V entropy for /dev/random";
+      type = types.bool;
+      default = true;
+      example = true;
+    };
   };
 
   config = let
@@ -68,7 +74,7 @@ with lib;
   
     networking.usePredictableInterfaceNames = false;
   
-    systemd.services.consume-hypervisor-entropy = {
+    systemd.services.consume-hypervisor-entropy = mkIf cfg.consumeEntropy {
       # https://github.com/Azure/WALinuxAgent/blob/e4cba48b0a516b874f0c75fa2ab40cbcc72771b6/bin/waagent2.0#L5686
       description = "Consume entropy in ACPI table provided by Hyper-V";
       wantedBy = [ "sshd.service" ];

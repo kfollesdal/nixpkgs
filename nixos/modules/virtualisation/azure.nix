@@ -48,6 +48,12 @@ with lib;
     #boot.loader.timeout = 0;
   
     boot.growPartition = true;
+
+    boot.loader.grub.extraConfig = ''
+      serial --unit=0 --speed=115200 ;
+      terminal_input serial console ;
+      terminal_output serial console";
+    '';
   
     # Don't put old configurations in the GRUB menu.  The user has no
     # way to select them anyway.

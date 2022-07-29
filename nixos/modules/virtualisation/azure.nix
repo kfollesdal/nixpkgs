@@ -161,6 +161,8 @@ LABEL="product_uuid-exit"
 #  
 };
 
+
+#networking.usePredictableInterfaceNames = false;
 }
 /*
 REFERENCES

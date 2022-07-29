@@ -22,6 +22,7 @@ with lib;
     boot.kernelParams = [
       # Kernel parameters recommende for Azure [1] and [3]
       "rootdelay=300"
+      "console=tty1"
       "console=ttyS0,115200" # [3]
       "earlyprintk=ttyS0"
       "net.ifnames=0"
@@ -30,6 +31,7 @@ with lib;
       "panic=1"
       "boot.panic_on_fail"
     ];
+    #https://docs.microsoft.com/en-us/troubleshoot/azure/virtual-machines/serial-console-linux
   
     security.sudo.wheelNeedsPassword = false;
   

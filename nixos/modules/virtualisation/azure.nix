@@ -22,7 +22,7 @@ with lib;
     boot.kernelParams = [
       # Kernel parameters recommende for Azure [1] and [3]
       "rootdelay=300"
-      "console=tty1"
+      # "console=tty1"
       "console=ttyS0,115200" # [3]
       "earlyprintk=ttyS0"
       "net.ifnames=0"

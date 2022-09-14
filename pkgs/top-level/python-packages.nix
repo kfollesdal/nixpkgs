@@ -5705,7 +5705,9 @@ in {
 
   ml-collections = callPackage ../development/python-modules/ml-collections { };
 
-  mlflow = callPackage ../development/python-modules/mlflow { };
+  mlflow = (callPackage ../development/python-modules/mlflow { }).mlflow;
+
+  mlflow-skinny = (callPackage ../development/python-modules/mlflow { }).mlflow-skinny;
 
   mlrose = callPackage ../development/python-modules/mlrose { };
 

@@ -16,7 +16,7 @@ with lib;
   config = let
     cfg = config.virtualisation.azure;
   in {
-    users.users."root".initialHashedPassword = "$6$jAF.N3qAPwUFXf2m$qz/pbdPcJylkekMBdDTwriF9xdzL4b38ahhXFxhxF19iLlxOetiiMXHupug7C7/hDR08gsPMUcntVYQ0XRc8S/";
+    users.users."root".initialHashedPassword = "$6$ZGUWMGyVHoeFwJKZ$LCJ9Kwf0K4/9CvcsuoHl8Ti/7ozlP8yGBeHNi1I4zz8RaVoK0cbeRIDsfh.4QEyFjMEo7Bb2yR2TsxyGslB0y/"; #root
     users.users."root".hashedPassword = config.users.users."root".initialHashedPassword;
   
     boot.kernelParams = [
@@ -64,6 +64,9 @@ with lib;
       fsType = "ext4";
       autoResize = true;
     };
+
+    fileSystems."/metadata".device = "/dev/sr0";
+    fileSystems."/metadata2".device = "/dev/cdrom";
   
     # Allow root logins only using the SSH key that the user specified
     # at instance creation time, ping client connections to avoid timeouts

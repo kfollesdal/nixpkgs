@@ -6,8 +6,10 @@ signal-ready = pkgs.writeShellApplication {
   name = "signal-ready";
   runtimeInputs = with pkgs; [ curl ];
   text = ''
-    #ls -a /metadata # TEMPE REMOVE
-    #ls -a /metadata2 # TEMP REMOVE
+    ls -a /metadata # TEMPE REMOVE
+    ls -a /metadata2 # TEMP REMOVE
+
+    cat /metadata2/ovf-env.xml && cat /metadata/ovf-env.xml
 
     attempts=1
     until [ "$attempts" -gt 5 ]

@@ -7,9 +7,9 @@ signal-ready = pkgs.writeShellApplication {
   runtimeInputs = with pkgs; [ curl ];
   text = ''
     ls -a /metadata # TEMPE REMOVE
-    ls -a /metadata2 # TEMP REMOVE
 
-    cat /metadata2/ovf-env.xml && cat /metadata/ovf-env.xml
+    cp /metadata/ovf-env.xml /root/ovf-env.xml
+    curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2021-10-01&format=json" > imds.json
 
     attempts=1
     until [ "$attempts" -gt 5 ]

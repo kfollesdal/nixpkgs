@@ -9,7 +9,7 @@ signal-ready = pkgs.writeShellApplication {
     ls -a /metadata # TEMPE REMOVE
 
     cp /metadata/ovf-env.xml /root/ovf-env.xml
-    curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/compute/name?api-version=2021-10-01&format=json" > imds.json
+    curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-10-01&format=json" > /root/imds.json
 
     attempts=1
     until [ "$attempts" -gt 5 ]

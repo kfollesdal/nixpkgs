@@ -66,7 +66,7 @@ with lib;
     };
 
     #fileSystems."/metadata".device = "/dev/sr0";
-    fileSystems."/metadata".device = "/dev/cdrom";
+    #>>>>>>>>>>>>>>>>>>>>>>>>>fileSystems."/metadata".device = "/dev/cdrom";
   
     # Allow root logins only using the SSH key that the user specified
     # at instance creation time, ping client connections to avoid timeouts

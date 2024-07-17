@@ -1,0 +1,12 @@
+diff --git a/setuptools/_distutils/util.py b/setuptools/_distutils/util.py
+index 9ee7772..1942907 100644
+--- a/setuptools/_distutils/util.py
++++ b/setuptools/_distutils/util.py
+@@ -423,6 +423,7 @@ def byte_compile(  # noqa: C901
+             with script:
+                 script.write(
+                     """\
++import setuptools # Need to import setuptools to import distutils
+ from distutils.util import byte_compile
+ files = [
+ """

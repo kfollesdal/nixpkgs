@@ -43,16 +43,16 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
-    alembic
-    lz4
-    numpy
-    oauthlib
-    openpyxl
+    thrift
     pandas
     pyarrow
-    sqlalchemy
-    thrift
+    lz4
     requests
+    oauthlib
+    numpy
+    sqlalchemy
+    openpyxl
+    alembic
     urllib3
   ];
 

@@ -14,16 +14,20 @@ buildPythonPackage rec {
   pyproject = true;
 
   # Still uses distutils
-  disabled = pythonOlder "3.7" || pythonAtLeast "3.12";
+  disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-TdZi6t9riuvopBcpUnvWmt9s6qKoaBy+9k0Sc7Po/ro=";
   };
 
+  patches = [
+    ./replace_distutils.patch
+  ];
+
   build-system = [ setuptools ];
 
-  dependencies = [ six ];
+  dependencies = [ six setuptools ];
 
   # No tests. Breaks when not disabling.
   doCheck = false;

@@ -1,0 +1,21 @@
+diff --git a/setuptools/_distutils/util.py b/setuptools/_distutils/util.py
+index 9ee7772..ab1a952 100644
+--- a/setuptools/_distutils/util.py
++++ b/setuptools/_distutils/util.py
+@@ -423,6 +423,7 @@ def byte_compile(  # noqa: C901
+             with script:
+                 script.write(
+                     """\
++import setuptools
+ from distutils.util import byte_compile
+ files = [
+ """
+@@ -451,7 +452,7 @@ byte_compile(files, optimize={optimize!r}, force={force!r},
+         cmd = [sys.executable]
+         cmd.extend(subprocess._optim_args_from_interpreter_flags())
+         cmd.append(script_name)
+-        spawn(cmd, dry_run=dry_run)
++        spawn(cmd, dry_run=dry_run )
+         execute(os.remove, (script_name,), "removing %s" % script_name, dry_run=dry_run)
+ 
+     # "Direct" byte-compilation: use the py_compile module to compile

@@ -22,7 +22,13 @@ buildPythonPackage rec {
   patches = [
     ./tag-date.patch
     ./setuptools-distutils-C++.patch
+    ./import-setuptools.patch
   ];
+
+  # postPatch = ''
+  #   substituteInPlace setuptools/_distutils/util.py \
+  #     --subst-var-by self "$out/lib/python3.12/site-packages/"
+  # '';
 
   nativeBuildInputs = [ wheel ];
 

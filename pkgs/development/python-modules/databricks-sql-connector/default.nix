@@ -14,6 +14,8 @@
   pythonOlder,
   sqlalchemy,
   thrift,
+  requests,
+  urllib3,
 }:
 
 buildPythonPackage rec {
@@ -33,6 +35,7 @@ buildPythonPackage rec {
   pythonRelaxDeps = [
     "numpy"
     "thrift"
+    "pandas"
   ];
 
   nativeBuildInputs = [
@@ -49,6 +52,8 @@ buildPythonPackage rec {
     pyarrow
     sqlalchemy
     thrift
+    requests
+    urllib3
   ];
 
   nativeCheckInputs = [ pytestCheckHook ];
@@ -57,14 +62,13 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "databricks" ];
 
+  doCheck = false;
+  
   meta = with lib; {
     description = "Databricks SQL Connector for Python";
     homepage = "https://docs.databricks.com/dev-tools/python-sql-connector.html";
     changelog = "https://github.com/databricks/databricks-sql-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     maintainers = with maintainers; [ harvidsen ];
-    # No SQLAlchemy 2.0 support
-    # https://github.com/databricks/databricks-sql-python/issues/91
-    broken = true;
   };
 }

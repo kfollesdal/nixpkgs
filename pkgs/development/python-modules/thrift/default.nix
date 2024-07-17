@@ -21,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-TdZi6t9riuvopBcpUnvWmt9s6qKoaBy+9k0Sc7Po/ro=";
   };
 
-  patches = [
-    ./replace_distutils.patch
-  ];
+  # patches = [
+  #   ./replace_distutils.patch
+  # ];
 
   build-system = [ setuptools ];
 
-  dependencies = [ six setuptools ];
+  dependencies = [ six ];
 
   # No tests. Breaks when not disabling.
   doCheck = false;

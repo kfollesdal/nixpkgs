@@ -16,6 +16,7 @@
   thrift,
   requests,
   urllib3,
+  fetchpatch,
 }:
 
 buildPythonPackage rec {
@@ -33,14 +34,32 @@ buildPythonPackage rec {
   };
 
   patches = [
-    # https://patch-diff.githubusercontent.com/raw/databricks/databricks-sql-python/pull/416.patch
-    ./fix.patch
+    (fetchpatch {
+      name = "python-3.12.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/databricks/databricks-sql-python/pull/416.patch";
+      sha256 = "sha256-sNCp8xSSmKP2yNzDK4wyWC5Hoe574AeHnKTeNcIxaek=";
+    })
+    ./fix2.patch
+    # ./fix.patch
+    
+    # (fetchpatch {
+    #   name = "python-3.12.patch";
+    #   url = "https://patch-diff.githubusercontent.com/raw/databricks/databricks-sql-python/pull/414.patch";
+    #   sha256 = "sha256-D/lR18aeuVJlmD2aCPDMXhTuSUnA6y5+szsgJboCClU=";
+    # })
   ];
+
+  # postPatch = ''
+  #   echo "ABCD"
+  #   ls
+  #   substituteInPlace tests/unit/test_client.py \
+  #     --replace 'called_with' 'assert_called_with'
+  # '';
 
   pythonRelaxDeps = [
     "numpy"
     "thrift"
-    "pandas" ##### Remove
+    # "pandas" ##### Remove
   ];
 
   nativeBuildInputs = [

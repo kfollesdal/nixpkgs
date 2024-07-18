@@ -1,0 +1,37 @@
+diff --git a/tests/unit/test_client.py b/tests/unit/test_client.py
+index 72f8e7d..eb91301 100644
+--- a/tests/unit/test_client.py
++++ b/tests/unit/test_client.py
+@@ -369,7 +369,7 @@ class ClientTestSuite(unittest.TestCase):
+         mock_op_handle = Mock()
+         cursor.active_op_handle = mock_op_handle
+         cursor.cancel()
+-        self.assertTrue(mock_thrift_backend.cancel_command.called_with(mock_op_handle))
++        mock_thrift_backend.cancel_command.assert_called_with(mock_op_handle)
+ 
+     @patch("databricks.sql.client.logger")
+     def test_cancel_command_will_issue_warning_for_cancel_with_no_executing_command(
+diff --git a/tests/unit/test_cloud_fetch_queue.py b/tests/unit/test_cloud_fetch_queue.py
+index e5611ce..276cc0e 100644
+--- a/tests/unit/test_cloud_fetch_queue.py
++++ b/tests/unit/test_cloud_fetch_queue.py
+@@ -65,7 +65,7 @@ class CloudFetchQueueSuite(unittest.TestCase):
+         queue = utils.CloudFetchQueue(MagicMock(), result_links=[], max_download_threads=10)
+ 
+         assert queue._create_next_table() is None
+-        assert mock_get_next_downloaded_file.called_with(0)
++        mock_get_next_downloaded_file.assert_called_with(0)
+ 
+     @patch("databricks.sql.utils.create_arrow_table_from_arrow_file")
+     @patch("databricks.sql.cloudfetch.download_manager.ResultFileDownloadManager.get_next_downloaded_file",
+@@ -76,8 +76,8 @@ class CloudFetchQueueSuite(unittest.TestCase):
+         queue = utils.CloudFetchQueue(schema_bytes, result_links=[], description=description, max_download_threads=10)
+         expected_result = self.make_arrow_table()
+ 
+-        assert mock_create_arrow_table.called_with(b"1234567890", True, schema_bytes, description)
+-        assert mock_get_next_downloaded_file.called_with(0)
++        mock_create_arrow_table.assert_called_with(b"1234567890", description)
++        mock_get_next_downloaded_file.assert_called_with(0)
+         assert queue.table == expected_result
+         assert queue.table.num_rows == 4
+         assert queue.table_row_index == 0

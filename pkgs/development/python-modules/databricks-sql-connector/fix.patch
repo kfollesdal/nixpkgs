@@ -1,0 +1,13 @@
+diff --git a/src/databricks/sql/client.py b/src/databricks/sql/client.py
+index e9e2978..2f3bdb7 100644
+--- a/src/databricks/sql/client.py
++++ b/src/databricks/sql/client.py
+@@ -1162,7 +1163,7 @@ class ResultSet:
+             timestamp_as_object=True,
+         )
+ 
+-        res = df.to_numpy(na_value=None)
++        res = df.to_numpy(na_value=None, dtype='object')
+         return [ResultRow(*v) for v in res]
+ 
+     @property

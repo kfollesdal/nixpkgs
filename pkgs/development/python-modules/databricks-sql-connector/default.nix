@@ -20,7 +20,7 @@
 
 buildPythonPackage rec {
   pname = "databricks-sql-connector";
-  version = "3.3.0";
+  version = "3.2.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.7";
@@ -29,17 +29,18 @@ buildPythonPackage rec {
     owner = "databricks";
     repo = "databricks-sql-python";
     rev = "refs/tags/v${version}";
-    hash = "sha256-a3OeKJ3c2UCClsPMah7iJY2YvIVLfHmmBuHAx8vdXZs=";
+    hash = "sha256-Sk/tYgFnWWHAsMSHhEUIwUagc6femAzQpQGyzJGXW1E=";
   };
 
   patches = [
+    # https://patch-diff.githubusercontent.com/raw/databricks/databricks-sql-python/pull/416.patch
     ./fix.patch
   ];
 
   pythonRelaxDeps = [
     "numpy"
     "thrift"
-    "pandas"
+    "pandas" ##### Remove
   ];
 
   nativeBuildInputs = [

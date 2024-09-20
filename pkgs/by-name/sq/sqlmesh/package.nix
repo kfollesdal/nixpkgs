@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
       watchfiles
       uvicorn
       uvicorn.optional-dependencies.standard
-      sse-startlette
+      sse-starlette
       pyarrow
     ];
   };

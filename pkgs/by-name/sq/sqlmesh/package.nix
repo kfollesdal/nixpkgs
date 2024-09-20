@@ -15,31 +15,49 @@ python3.pkgs.buildPythonApplication rec {
   };
 
   build-system = with python3.pkgs; [
-    setuptools
     setuptools-scm
   ];
 
-   dependencies = with python3.pkgs; [
-     astor
-     click
-     croniter
-     duckdb
-     dateparser
-     freezegun
-     #hyperscript
-     importlib-metadata
-     ipywidgets
-     jinja2
-     pandas
-     pydantic
-     requests
-     rich[jupyter]
-     ruamel-yaml
-     #sqlglot[rs]
-     sqlglot
-   ];
+  dependencies = with python3.pkgs; [
+    astor
+    click
+    croniter
+    duckdb
+    dateparser
+    freezegun
+    hyperscript
+    importlib-metadata
+    ipywidgets
+    jinja2
+    pandas
+    pydantic
+    requests
+    rich
+    rich.optional-dependencies.jupyter
+    ruamel-yaml
+    sqlglot
+    sqlglot.optional-dependencies.rs
+  ];
+
+  pythonRelaxDeps = [ "sqlglot" ];
+
+  passthru.optional-dependencies = {
+    web = with python3.pkgs; [
+      fastapi
+      watchfiles
+      uvicorn
+      uvicorn.optional-dependencies.standard
+      sse-startlette
+      pyarrow
+    ];
+  };
 
   doCheck = false; # Do check when fetch from github
+
+#  nativeCheckInputs = with python3.pkgs; [
+#    pytestCheckHook
+#    pytest-mock
+#  ];
 
   pythonImportsCheck = [ "sqlmesh" ];
 

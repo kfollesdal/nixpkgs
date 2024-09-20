@@ -5865,6 +5865,8 @@ self: super: with self; {
 
   hyperscan = callPackage ../development/python-modules/hyperscan { };
 
+  hyperscript = callPackage ../development/python-modules/hyperscript { };
+
   hyperion-py = callPackage ../development/python-modules/hyperion-py { };
 
   hyperlink = callPackage ../development/python-modules/hyperlink { };
@@ -14797,6 +14799,8 @@ self: super: with self; {
   sqlbag = callPackage ../development/python-modules/sqlbag { };
 
   sqlglot = callPackage ../development/python-modules/sqlglot { };
+
+  sqlglotrs = callPackage ../development/python-modules/sqlglotrs { };
 
   sqlite-anyio = callPackage ../development/python-modules/sqlite-anyio { };
 

@@ -5,43 +5,39 @@
   fetchFromGitHub,
   pytestCheckHook,
   python-dateutil,
-  pythonOlder,
-  setuptools,
   setuptools-scm,
+  sqlglotrs,
 }:
 
 buildPythonPackage rec {
   pname = "sqlglot";
-  version = "23.12.1";
+  version = "25.22.0";
   pyproject = true;
-
-  disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {
     repo = "sqlglot";
     owner = "tobymao";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-VUG/l1iZ/8vAJwhktN/tx8U8KVLgaghUPArtxEyIA54=";
+    rev = "v${version}";
+    hash = "sha256-65fELer/b7/JPtkwda4ZXe9iIr0Yc3TbeTe7PMulK/s=";
   };
 
-  nativeBuildInputs = [
-    setuptools
+  build-system = [
     setuptools-scm
   ];
 
   propagatedBuildInputs = [
     # Optional dependency used in the sqlglot optimizer
+    # https://github.com/tobymao/sqlglot?tab=readme-ov-file#optional-dependencies
     python-dateutil
   ];
+
+  passthru.optional-dependencies = {
+    rs = [ sqlglotrs ];
+  };
 
   nativeCheckInputs = [
     pytestCheckHook
     duckdb
-  ];
-
-  disabledTestPaths = [
-    # These integration tests assume a running Spark instance
-    "tests/dataframe/integration"
   ];
 
   pythonImportsCheck = [ "sqlglot" ];

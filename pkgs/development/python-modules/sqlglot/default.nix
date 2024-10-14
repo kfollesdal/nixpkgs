@@ -5,34 +5,35 @@
   fetchFromGitHub,
   pytestCheckHook,
   python-dateutil,
-  pythonOlder,
-  setuptools,
   setuptools-scm,
+  sqlglotrs,
 }:
 
 buildPythonPackage rec {
   pname = "sqlglot";
-  version = "25.20.1";
+  version = "25.24.5";
   pyproject = true;
-
-  disabled = pythonOlder "3.8";
 
   src = fetchFromGitHub {
     repo = "sqlglot";
     owner = "tobymao";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-RE9Hbb3g6j4j5X2ksjcBZ610RcV7Zd3YaKaBIUyD2vU=";
+    rev = "v${version}";
+    hash = "sha256-YIK0gTzTYB+XMp0lYRWFm4vq1tjELPqFhNPaug1Y5d4=";
   };
 
-  nativeBuildInputs = [
-    setuptools
+  build-system = [
     setuptools-scm
   ];
 
   propagatedBuildInputs = [
     # Optional dependency used in the sqlglot optimizer
+    # https://github.com/tobymao/sqlglot?tab=readme-ov-file#optional-dependencies
     python-dateutil
   ];
+
+  passthru.optional-dependencies = {
+    rs = [ sqlglotrs ];
+  };
 
   nativeCheckInputs = [
     pytestCheckHook
